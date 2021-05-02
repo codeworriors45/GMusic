@@ -11,6 +11,18 @@
   padding: 0;
   margin: 0;
 }
+/* preloader */
+.loader_bg{
+  position: fixed;
+  background: #fff url("forYouTube.svg") no-repeat center;
+  z-index: 99999999;
+  width: 100%;
+  height: 100%;
+}
+.loader{
+  
+}
+
 
 /* declare variable */
 :root {
@@ -134,12 +146,14 @@ body {
 .controls i:nth-child(4) {
   font-size: 40px;
 }
-.controls #prev {
+
+/* commented because of play pause button  */
+/* .controls #prev {
   margin-right: -13px;
 }
 .controls #prev {
   margin-left: -13px;
-}
+} */
 .controls .play-pause {
   height: 50px;
   width: 50px;
@@ -232,7 +246,7 @@ ul li .audio-duration {
   font-size: 16px;
 }
 ul li.playing{
-  color: green;
+  color: var(--pink);
   pointer-events: none;
 }
 /* for phone */
