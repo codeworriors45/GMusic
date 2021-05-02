@@ -12,18 +12,13 @@
   margin: 0;
 }
 /* preloader */
-.loader_bg{
+.loader_bg {
   position: fixed;
   background: #fff url("forYouTube.svg") no-repeat center;
   z-index: 99999999;
   width: 100%;
   height: 100%;
 }
-.loader{
-  
-}
-
-
 /* declare variable */
 :root {
   --pink: #ff5b94;
@@ -245,11 +240,16 @@ ul li .row p {
 ul li .audio-duration {
   font-size: 16px;
 }
-ul li.playing{
+ul li.playing {
   color: var(--pink);
   pointer-events: none;
 }
 /* for phone */
 @media only screen and (max-width: 450px) {
-  
+  .box {
+    position: absolute;
+    width: 100vw;
+    height: 99vh;
+    box-shadow: none;
+}
 }
