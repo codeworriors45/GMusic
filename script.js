@@ -239,3 +239,8 @@ function clicked(element){
     playMusic();
     playingNow();
 }
+// preloader
+let loaderr = document.querySelector(".loader_bg")
+function myFunction(){
+    loaderr.style.display = 'none';
+}
