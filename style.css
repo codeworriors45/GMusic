@@ -21,8 +21,8 @@
 }
 /* declare variable */
 :root {
-  --pink: #ff5b94;
-  --violet: #805385;
+  --pink: #105e9c;;
+  --violet: #861d92;
   --lightblack: #515c6f;
   --white: white;
   --darkwhite: #cecaca;
@@ -34,6 +34,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background: url("back.svg") no-repeat center center/cover;
+
 }
 .box {
   position: absolute;
@@ -43,6 +45,14 @@ body {
   border-radius: 15px;
   padding: 25px 30px;
   box-shadow: 0px 6px 25px var(--lightbshadow);
+
+  /* glassmorphisam */
+  background: rgba( 0, 255, 240, 0.15 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 8.5px );
+  -webkit-backdrop-filter: blur( 8.5px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 .box i {
   cursor: pointer;
@@ -61,7 +71,7 @@ body {
   font-size: 30px;
 }
 .top-bar span {
-  color: var(--lightblack);
+  color: white;
   font-size: 18px;
 }
 .img-area {
@@ -76,6 +86,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.8;
 }
 .song-details {
   text-align: center;
@@ -92,7 +103,7 @@ body {
 .progress-area {
   height: 5px;
   width: 100%;
-  background: #f0f0f0;
+  background: #b9dedc;
   border-radius: 50px;
   cursor: pointer;
 }
@@ -152,7 +163,7 @@ body {
 .controls .play-pause {
   height: 50px;
   width: 50px;
-  background: linear-gradient(var(--white) 0%, var(--darkwhite) 100%);
+  background: linear-gradient(#b9dedc 0%, var(--darkwhite) 100%);
   box-shadow: 0px 0px 5px var(--pink);
   border-radius: 50%;
   display: flex;
@@ -220,6 +231,16 @@ body {
   max-height: 260px;
   overflow-y: auto;
 }
+.music_list{
+  z-index: 65656565;
+  background: rgba( 222, 241, 240, 0.90 );
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 15.0px );
+  -webkit-backdrop-filter: blur( 15.0px );
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 .music_list ul::-webkit-scrollbar {
   width: 0px;
 }
@@ -229,7 +250,7 @@ body {
   padding-bottom: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  color: var(--lightblack);
+  color: #020308d1;
 }
 .music_list ul li:last-child {
   border-bottom: 0px;

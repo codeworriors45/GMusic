@@ -180,7 +180,7 @@ hideMoreBtn.addEventListener("click", () => {
     musicList.classList.toggle("show")
 })
 
-// be safe .... below codw will blow your mind
+// be safe .... below code will blow your mind
 const ulTag = wrapper.querySelector("ul");
 // let's create li according to array length
 for (let i = 0; i < allMusic.length; i++) {
@@ -191,7 +191,7 @@ for (let i = 0; i < allMusic.length; i++) {
                         <p>${allMusic[i].artist}</p>
                     </div>
                     <audio class="${allMusic[i].src}" src="Music/${allMusic[i].src}.mp3"></audio>
-                    <span id="${allMusic[i].src}" class="audio-duration">3:40</span>
+                    <span id="${allMusic[i].src}" class="audio-duration"></span>
                 </li>`;
 
     ulTag.insertAdjacentHTML("beforeend",liTag);
