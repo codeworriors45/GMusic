@@ -72,7 +72,7 @@ body {
   font-size: 30px;
 }
 .top-bar span {
-  color: white;
+  color: black;
   font-size: 18px;
 }
 .img-area {
@@ -244,7 +244,7 @@ body {
 
 
 .music_list ul::-webkit-scrollbar {
-  width: 0px;
+  width: 10px;
 }
 .music_list ul li {
   list-style: none;
