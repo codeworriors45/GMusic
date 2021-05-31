@@ -10,11 +10,11 @@ const wrapper = document.querySelector(".box"),
     progressBar = wrapper.querySelector(".progress-bar"),
     musicList = wrapper.querySelector(".music_list"),
     showMoreBtn = wrapper.querySelector("#more_music"),
-    hideMoreBtn = musicList.querySelector("#close");
-    api = "https://gmusicflaskapi.herokuapp.com/"
-    musicPaths = "https://music.gmusic.workers.dev/Music/"
-    posterPaths = "https://music.gmusic.workers.dev/Poster/"
-    lyricsPaths = "https://music.gmusic.workers.dev/Lyrics/"
+    hideMoreBtn = musicList.querySelector("#close"),
+    api = "https://gmusicflaskapi.herokuapp.com/",
+    musicPaths = "https://music.gmusic.workers.dev/Music/",
+    posterPaths = "https://music.gmusic.workers.dev/Poster/",
+    lyricsPaths = "https://music.gmusic.workers.dev/Lyrics/";
 
 
 //  Fetch APi
