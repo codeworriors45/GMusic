@@ -11,22 +11,42 @@ const wrapper = document.querySelector(".box"),
     musicList = wrapper.querySelector(".music_list"),
     showMoreBtn = wrapper.querySelector("#more_music"),
     hideMoreBtn = musicList.querySelector("#close");
+    api = "https://gmusicflaskapi.herokuapp.com/"
+    musicPaths = "https://music.gmusic.workers.dev/Music/"
+    posterPaths = "https://music.gmusic.workers.dev/Poster/"
+    lyricsPaths = "https://music.gmusic.workers.dev/Lyrics/"
 
 
-let musicIndex = Math.round((Math.random() * allMusic.length) + 1);
+//  Fetch APi
+let allMusic = [];
+let musicIndex = 0;
 
-//calling load music function once window load 
-window.addEventListener("load", () => {
+// API fetch function
+async function apiFetchFunc() {
+    data = await fetch(api);
+    loadedData = await data.json();
+    return loadedData;
+}
+
+// API fetch manager function
+async function manager() {
+    allMusic = await apiFetchFunc();
+    musicIndex = Math.round((Math.random() * allMusic.length) + 1);
     loadMusic(musicIndex);
     playingNow();
-})
+}
+manager();
+
+
+
+
 
 // load music function
 function loadMusic(indexNumber) {
-    musicName.innerText = allMusic[indexNumber - 1].Name;
+    musicName.innerText = allMusic[indexNumber - 1].name;
     musicArtist.innerText = allMusic[indexNumber - 1].artist;
-    musicImg.src = `musicImg/${allMusic[indexNumber - 1].img}.jpg`;
-    musicAudio.src = `Music/${allMusic[indexNumber - 1].src}.mp3`;
+    musicImg.src = `${posterPaths}${allMusic[indexNumber - 1].poster}`;
+    musicAudio.src = `${musicPaths}${allMusic[indexNumber - 1].music}`;
 }
 // play Music function
 function playMusic() {
@@ -187,7 +207,7 @@ for (let i = 0; i < allMusic.length; i++) {
     // let's pass the song name and artist name from the array
     let liTag =`<li li-index="${i + 1}">
                     <div class="row">
-                        <span>${allMusic[i].Name}</span>
+                        <span>${allMusic[i].name}</span>
                         <p>${allMusic[i].artist}</p>
                     </div>
                     <audio class="${allMusic[i].src}" src="Music/${allMusic[i].src}.mp3"></audio>
@@ -238,9 +258,4 @@ function clicked(element){
     loadMusic(musicIndex)
     playMusic();
     playingNow();
-}
-// preloader
-let loaderr = document.querySelector(".loader_bg")
-function myFunction(){
-    loaderr.style.display = 'none';
 }
