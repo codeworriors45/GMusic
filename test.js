@@ -15,11 +15,8 @@ const wrapper = document.querySelector(".box"),
     allLiTags = ulTag.querySelectorAll("li"),
     api = "https://gmusicflaskapi.herokuapp.com/",
     musicPaths = "https://siasky.net/",
-    api = "https://gmusicflaskapi.herokuapp.com/",
-    musicPaths = "https://music.gmusic.workers.dev/Music/",
     posterPaths = "https://music.gmusic.workers.dev/Poster/",
     lyricsPaths = "https://music.gmusic.workers.dev/Lyrics/";
-
 
 //  Fetch APi
 let allMusic = [];
@@ -32,30 +29,28 @@ async function apiFetchFunc() {
     return loadedData;
 }
 
-// API fetch manager function
-async function manager() {
-    allMusic = await apiFetchFunc();
+apiFetchFunc().then((result) => {
+    console.log(result);
+    allMusic = result;
     musicIndex = Math.round((Math.random() * allMusic.length) + 1);
-
-    // // be safe .... below code will blow your mind
-    // // let's create li according to array length
+    // be safe .... below codw will blow your mind
+    // let's create li according to array length
     for (let i = 0; i < allMusic.length; i++) {
-
-        // let's pass the song name and artist name from the API
-        let liTag = `<li li-index="${i + 1}">
+        // let's pass the song name and artist name from the array
+        let liTag =`<li li-index="${i + 1}">
                         <div class="row">
                             <span>${allMusic[i].name}</span>
                             <p>${allMusic[i].artist}</p>
                         </div>
                         <audio class="${allMusic[i].music}" src="${musicPaths}${allMusic[i].music}"></audio>
-                        <span id="${allMusic[i].music}" class="audio-duration"></span>
+                        <span id="${allMusic[i].music}" class="audio-duration">3:40</span>
                     </li>`;
 
-        await ulTag.insertAdjacentHTML("beforeend", liTag);
+        ulTag.insertAdjacentHTML("beforeend",liTag);
         let liAudioTag = ulTag.querySelector(`.${allMusic[i].music}`);
         let liAudioDuration = ulTag.querySelector(`#${allMusic[i].music}`);
 
-        liAudioTag.addEventListener("loadeddata", () => {
+        liAudioTag.addEventListener("loadeddata", ()=>{
             let audioDuration = liAudioTag.duration;
             let totalMin = Math.floor(audioDuration / 60);
             let totalSec = Math.floor(audioDuration % 60);
@@ -67,11 +62,24 @@ async function manager() {
         })
     }
     loadMusic(musicIndex);
-    playMusic();
     playingNow();
-}
-manager();
+    
+}).catch((err) => {
+    console.log(err);
+    
+});
 
+
+
+
+
+// musicIndex = Math.round((Math.random() * allMusic.length) + 1);
+
+//calling load music function once window load 
+// window.addEventListener("load", () => {
+//     loadMusic(musicIndex);
+//     playingNow();
+// })
 
 // load music function
 function loadMusic(indexNumber) {
@@ -85,8 +93,8 @@ function playMusic() {
     wrapper.classList.add("paused");
     playPauseBtn.querySelector("i").innerHTML = "pause"
     musicAudio.play();
-}
 
+}
 // pause Music function
 function pauseMusic() {
     wrapper.classList.remove("paused");
@@ -101,7 +109,7 @@ function nextMusic() {
     musicIndex > allMusic.length ? musicIndex = 1 : musicIndex = musicIndex;
     loadMusic(musicIndex);
     playMusic();
-    playingNow();
+    playingNow()
 }
 
 // previous music function
@@ -174,8 +182,8 @@ progressArea.addEventListener("click", (e) => {
     musicAudio.currentTime = (clickedAtX / progressWidthVal) * songDuration
     playMusic()
 })
-
 // now play with repeat and shuffle
+
 const repeatBtn = wrapper.querySelector("#repeat-plist");
 repeatBtn.addEventListener("click", () => {
     let getText = repeatBtn.innerText;
@@ -193,6 +201,7 @@ repeatBtn.addEventListener("click", () => {
     }
 })
 // above we just change the icon . now let's change what to do 
+
 musicAudio.addEventListener("ended", () => {
     let getText = repeatBtn.innerText;
 
@@ -231,65 +240,60 @@ hideMoreBtn.addEventListener("click", () => {
     musicList.classList.toggle("show")
 })
 
-// be safe .... below code will blow your mind
-const ulTag = wrapper.querySelector("ul");
-// let's create li according to array length
-for (let i = 0; i < allMusic.length; i++) {
-    console.log(allMusic[i].name);
-    console.log(allMusic[i].artist);
-    console.log(allMusic[i].music);
-    console.log("${musicPaths}${allMusic[i].music}");
-    // let's pass the song name and artist name from the array
-    let liTag =`<li li-index="${i + 1}">
-                    <div class="row">
-                        <span>${allMusic[i].name}</span>
-                        <p>${allMusic[i].artist}</p>
-                    </div>
-                    <audio class="${allMusic[i].music}" src="${musicPaths}${allMusic[i].music}"></audio>
-                    <span id="${allMusic[i].music}" class="audio-duration"></span>
-                </li>`;
+// // be safe .... below codw will blow your mind
+// // let's create li according to array length
+// for (let i = 0; i < allMusic.length; i++) {
+//     // let's pass the song name and artist name from the array
+//     let liTag =`<li li-index="${i + 1}">
+//                     <div class="row">
+//                         <span>${allMusic[i].name}</span>
+//                         <p>${allMusic[i].artist}</p>
+//                     </div>
+//                     <audio class="${allMusic[i].music}" src="${musicPaths}${allMusic[i].music}"></audio>
+//                     <span id="${allMusic[i].music}" class="audio-duration">3:40</span>
+//                 </li>`;
 
-    ulTag.insertAdjacentHTML("beforeend",liTag);
-    let liAudioTag = ulTag.querySelector(`.${allMusic[i].music}`);
-    let liAudioDuration = ulTag.querySelector(`#${allMusic[i].music}`);
+//     ulTag.insertAdjacentHTML("beforeend",liTag);
+//     let liAudioTag = ulTag.querySelector(`.${allMusic[i].music}`);
+//     let liAudioDuration = ulTag.querySelector(`#${allMusic[i].music}`);
 
-    liAudioTag.addEventListener("loadeddata", ()=>{
-        let audioDuration = liAudioTag.duration;
-        let totalMin = Math.floor(audioDuration / 60);
-        let totalSec = Math.floor(audioDuration % 60);
-        if (totalSec < 10) {
-            totalSec = `0${totalSec}`
-        }
-        liAudioDuration.innerText = `${totalMin}:${totalSec}`;
-        liAudioDuration.setAttribute("t-duration", `${totalMin}:${totalSec}`)
-    })
-}
+//     liAudioTag.addEventListener("loadeddata", ()=>{
+//         let audioDuration = liAudioTag.duration;
+//         let totalMin = Math.floor(audioDuration / 60);
+//         let totalSec = Math.floor(audioDuration % 60);
+//         if (totalSec < 10) {
+//             totalSec = `0${totalSec}`
+//         }
+//         liAudioDuration.innerText = `${totalMin}:${totalSec}`;
+//         liAudioDuration.setAttribute("t-duration", `${totalMin}:${totalSec}`)
+//     })
+// }
 
-
-//     // play song on click
-function playingNow() {
-    for (let j = 0; j < allLiTags.length; j++) { // now j = 0 to 6
+// play song on click
+function playingNow(){
+    for (let j = 0; j < allLiTags.length; j++) {
 
         let audioTag = allLiTags[j].querySelector(".audio-duration")
 
-        if (allLiTags[j].classList.contains("playing")) {
+        if(allLiTags[j].classList.contains("playing")){
             allLiTags[j].classList.remove("playing")
             let adDuration = audioTag.getAttribute("t-duration");
             audioTag.innerText = adDuration;
         }
 
-        if (allLiTags[j].getAttribute("li-index") == musicIndex) {
+        if(allLiTags[j].getAttribute("li-index") == musicIndex){
             allLiTags[j].classList.add("playing");
             audioTag.innerText = "playing"
         }
         allLiTags[j].setAttribute("onclick", "clicked(this)")
+        
     }
 }
 
-function clicked(element) {
+function clicked(element){
     let getLiIndex = element.getAttribute("li-index");
     musicIndex = getLiIndex;
-    loadMusic(musicIndex);
+    loadMusic(musicIndex)
     playMusic();
     playingNow();
 }
