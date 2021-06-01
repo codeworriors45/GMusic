@@ -15,6 +15,8 @@ const wrapper = document.querySelector(".box"),
     allLiTags = ulTag.querySelectorAll("li"),
     api = "https://gmusicflaskapi.herokuapp.com/",
     musicPaths = "https://siasky.net/",
+    api = "https://gmusicflaskapi.herokuapp.com/",
+    musicPaths = "https://music.gmusic.workers.dev/Music/",
     posterPaths = "https://music.gmusic.workers.dev/Poster/",
     lyricsPaths = "https://music.gmusic.workers.dev/Lyrics/";
 
@@ -229,6 +231,39 @@ hideMoreBtn.addEventListener("click", () => {
     musicList.classList.toggle("show")
 })
 
+// be safe .... below code will blow your mind
+const ulTag = wrapper.querySelector("ul");
+// let's create li according to array length
+for (let i = 0; i < allMusic.length; i++) {
+    console.log(allMusic[i].name);
+    console.log(allMusic[i].artist);
+    console.log(allMusic[i].music);
+    console.log("${musicPaths}${allMusic[i].music}");
+    // let's pass the song name and artist name from the array
+    let liTag =`<li li-index="${i + 1}">
+                    <div class="row">
+                        <span>${allMusic[i].name}</span>
+                        <p>${allMusic[i].artist}</p>
+                    </div>
+                    <audio class="${allMusic[i].music}" src="${musicPaths}${allMusic[i].music}"></audio>
+                    <span id="${allMusic[i].music}" class="audio-duration"></span>
+                </li>`;
+
+    ulTag.insertAdjacentHTML("beforeend",liTag);
+    let liAudioTag = ulTag.querySelector(`.${allMusic[i].music}`);
+    let liAudioDuration = ulTag.querySelector(`#${allMusic[i].music}`);
+
+    liAudioTag.addEventListener("loadeddata", ()=>{
+        let audioDuration = liAudioTag.duration;
+        let totalMin = Math.floor(audioDuration / 60);
+        let totalSec = Math.floor(audioDuration % 60);
+        if (totalSec < 10) {
+            totalSec = `0${totalSec}`
+        }
+        liAudioDuration.innerText = `${totalMin}:${totalSec}`;
+        liAudioDuration.setAttribute("t-duration", `${totalMin}:${totalSec}`)
+    })
+}
 
 
 //     // play song on click
